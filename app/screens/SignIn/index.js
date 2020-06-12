@@ -1,16 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import { Input, Text, Button } from "react-native-elements";
 import { View, StyleSheet, TouchableOpacity } from "react-native";
 
 const SignIn = ({ navigation: { navigate } }) => {
+  const [data, setData] = useState({});
   return (
     <View style={styles.container}>
       <Text h3 style={styles.heading}>
         Welcome Back
       </Text>
-
-      <Input label="Email" autoCapitalize="none" autoCorrect={false} />
-      <Input label="Password" autoCapitalize="none" autoCorrect={false} />
+      <Input
+        label="Email"
+        autoCapitalize="none"
+        autoCorrect={false}
+        onChangeText={(email) => setData({ ...data, email })}
+      />
+      <Input
+        label="Password"
+        secureTextEntry={true}
+        autoCapitalize="none"
+        autoCorrect={false}
+        onChangeText={(password) => setData({ ...data, password })}
+      />
 
       <Button
         onPress={() => navigate("Dashboard")}

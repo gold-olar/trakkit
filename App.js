@@ -8,29 +8,33 @@ import SignUp from "./app/screens/SignUp";
 import Welcome from "./app/screens/Welcome";
 import Dashboard from "./app/screens/Dashboard";
 
+import { Provider as AuthProvider } from "./app/contexts/authContext";
+
 const Stack = createStackNavigator();
 
 function App() {
   return (
-    <NavigationContainer initialRouteName="Welcome">
-      <Stack.Navigator
-        screenOptions={{
-          headerStyle: {
-            backgroundColor: "#EE005F",
-          },
-          headerTintColor: "#fff",
-          headerTitleStyle: {
-            fontWeight: "bold",
-            textTransform: "uppercase",
-          },
-        }}
-      >
-        <Stack.Screen name="Welcome" component={Welcome} />
-        <Stack.Screen name="Signup" component={SignUp} />
-        <Stack.Screen name="Signin" component={SignIn} />
-        <Stack.Screen name="Dashboard" component={Dashboard} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <AuthProvider>
+      <NavigationContainer initialRouteName="Welcome">
+        <Stack.Navigator
+          screenOptions={{
+            headerStyle: {
+              backgroundColor: "#EE005F",
+            },
+            headerTintColor: "#fff",
+            headerTitleStyle: {
+              fontWeight: "bold",
+              textTransform: "uppercase",
+            },
+          }}
+        >
+          <Stack.Screen name="Welcome" component={Welcome} />
+          <Stack.Screen name="Signup" component={SignUp} />
+          <Stack.Screen name="Signin" component={SignIn} />
+          <Stack.Screen name="Dashboard" component={Dashboard} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </AuthProvider>
   );
 }
 
