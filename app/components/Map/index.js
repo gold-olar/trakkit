@@ -7,10 +7,10 @@ const Map = () => {
     <SafeAreaView style={styles.container}>
       <MapView
         initialRegion={{
-          latitude: "6.465422",
-          longitude: "3.406448",
-          latitudeDelta: "0.1",
-          longitudeDelta: "0.1",
+          latitude: 6.465422,
+          longitude: 3.406448,
+          latitudeDelta: 0.1,
+          longitudeDelta: 0.1,
         }}
         style={styles.mapStyle}
       />
