@@ -12,11 +12,17 @@ const authReducer = (state, action) => {
       return { ...state, loading: true };
     case "SIGNOUT":
       return {};
+    case "CLEAR_ERROR":
+      return { ...state, error: "" };
     default:
       return state;
   }
 };
-
+const clearError = (dispatch) => {
+  return () => {
+    dispatch({ type: "CLEAR_ERROR" });
+  };
+};
 const signup = (dispatch) => {
   return async (data, navigate) => {
     try {
@@ -59,7 +65,6 @@ const signout = (dispatch) => {
   return async (navigate) => {
     navigate("Welcome");
     await AsyncStorage.removeItem("token");
-    alert("removed");
     dispatch({
       type: "SIGNOUT",
     });
@@ -74,7 +79,7 @@ const persistAuth = (dispatch) => {
 
 export const { Provider, Context } = CreateDataContext(
   authReducer,
-  { signup, signin, signout, persistAuth },
+  { signup, signin, signout, persistAuth, clearError },
   {
     auth: false,
   }
