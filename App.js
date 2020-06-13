@@ -29,9 +29,27 @@ function App() {
           }}
         >
           <Stack.Screen name="Welcome" component={Welcome} />
-          <Stack.Screen name="Signup" component={SignUp} />
-          <Stack.Screen name="Signin" component={SignIn} />
-          <Stack.Screen name="Dashboard" component={Dashboard} />
+          <Stack.Screen
+            options={{
+              headerShown: false,
+            }}
+            name="Signup"
+            component={SignUp}
+          />
+          <Stack.Screen
+            name="Signin"
+            options={{
+              headerShown: false,
+            }}
+            component={SignIn}
+          />
+          <Stack.Screen
+            name="Dashboard"
+            options={{
+              headerShown: false,
+            }}
+            component={Dashboard}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </AuthProvider>

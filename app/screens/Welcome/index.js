@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useContext } from "react";
+import { AsyncStorage } from "react-native";
 import {
   ImageBackground,
   View,
@@ -8,6 +9,7 @@ import {
   TouchableOpacity,
   SafeAreaView,
 } from "react-native";
+import { Context as AuthContext } from "../../contexts/authContext";
 
 const image = {
   uri:
@@ -15,6 +17,19 @@ const image = {
 };
 
 const Welcome = ({ navigation: { navigate } }) => {
+  const { persistAuth } = useContext(AuthContext);
+  const getPage = async () => {
+    const token = await AsyncStorage.getItem("token");
+    if (!token) {
+      return "Signin";
+    }
+    persistAuth(token);
+    return "Dashboard";
+  };
+
+  // useEffect(() => {
+  //  .then((auth) => auth && navigate("Dashboard"));
+  // }, []);
   return (
     <>
       <SafeAreaView style={styles.container}>
@@ -35,7 +50,7 @@ const Welcome = ({ navigation: { navigate } }) => {
             <Text style={styles.headerText}> Record your travel motions </Text>
           </View>
           <TouchableOpacity
-            onPress={() => navigate("Signin")}
+            onPress={async () => navigate(await getPage())}
             style={styles.getStarted}
           >
             <Text style={styles.getStartedText}>Get Started</Text>

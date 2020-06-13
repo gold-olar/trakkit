@@ -1,14 +1,35 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Input, Text, Button } from "react-native-elements";
 import { View, StyleSheet, TouchableOpacity } from "react-native";
+import { Context as AuthContext } from "../../contexts/authContext";
 
 const SignIn = ({ navigation: { navigate } }) => {
+  const { state, signin } = useContext(AuthContext);
+  const [validator, setValidator] = useState();
   const [data, setData] = useState({});
+
+  const handleSignin = () => {
+    if (data.email && data.password) {
+      setValidator();
+      return signin(data, navigate);
+    }
+    return setValidator("All fields are required");
+  };
   return (
     <View style={styles.container}>
       <Text h3 style={styles.heading}>
         Welcome Back
       </Text>
+      {state.error ? (
+        <Text style={styles.error}> {state.error} </Text>
+      ) : (
+        <Text style={styles.error}> </Text>
+      )}
+      {validator ? (
+        <Text style={styles.error}> {validator} </Text>
+      ) : (
+        <Text style={styles.error}> </Text>
+      )}
       <Input
         label="Email"
         autoCapitalize="none"
@@ -24,7 +45,7 @@ const SignIn = ({ navigation: { navigate } }) => {
       />
 
       <Button
-        onPress={() => navigate("Dashboard")}
+        onPress={() => handleSignin()}
         title="Sign In"
         buttonStyle={styles.signinBtn}
       />
@@ -50,6 +71,11 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginBottom: "30%",
     marginTop: "10%",
+  },
+  error: {
+    margin: 10,
+    textAlign: "center",
+    color: "red",
   },
   signinBtn: {
     fontWeight: "700",
