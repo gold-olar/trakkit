@@ -58,10 +58,19 @@ const Auth = ({ type, header, buttonText, handleAuth, state, navigate }) => {
         loading={state.loading}
       />
 
-      <Text style={styles.dont}>Already have an account ?</Text>
+      <Text style={styles.dont}>
+        {" "}
+        {type === "signin" ? "Don't" : "Already"} have an account ?
+      </Text>
 
-      <TouchableOpacity onPress={() => navigate("Signin")} style={styles.link}>
-        <Text style={styles.signup}> Sign In </Text>
+      <TouchableOpacity
+        onPress={() => navigate(type === "signin" ? "Signup" : "Signin")}
+        style={styles.link}
+      >
+        <Text style={styles.signup}>
+          {" "}
+          {type === "signin" ? "Sign Up" : "Sign In"}{" "}
+        </Text>
       </TouchableOpacity>
     </View>
   );
