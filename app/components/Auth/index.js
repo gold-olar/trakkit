@@ -13,6 +13,7 @@ const Auth = ({ type, header, buttonText, handleAuth, state, navigate }) => {
     }
     return setValidator("All fields are required");
   };
+
   return (
     <View style={styles.container}>
       <Text h3 style={styles.heading}>
@@ -59,7 +60,6 @@ const Auth = ({ type, header, buttonText, handleAuth, state, navigate }) => {
       />
 
       <Text style={styles.dont}>
-        {" "}
         {type === "signin" ? "Don't" : "Already"} have an account ?
       </Text>
 
@@ -68,8 +68,7 @@ const Auth = ({ type, header, buttonText, handleAuth, state, navigate }) => {
         style={styles.link}
       >
         <Text style={styles.signup}>
-          {" "}
-          {type === "signin" ? "Sign Up" : "Sign In"}{" "}
+          {type === "signin" ? "Sign Up" : "Sign In"}
         </Text>
       </TouchableOpacity>
     </View>
