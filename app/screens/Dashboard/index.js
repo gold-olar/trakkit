@@ -7,9 +7,9 @@ import TrackCreate from "../TrackCreate";
 import TrackList from "../TrackList";
 
 const icons = {
-  tracklist: "ios-list-box",
+  traklist: "ios-list-box",
   account: "ios-contact",
-  trackcreate: "ios-create",
+  trakcreate: "ios-create",
 };
 
 const Tab = createBottomTabNavigator();
@@ -33,8 +33,8 @@ const Dashboard = () => {
         inactiveTintColor: "gray",
       }}
     >
-      <Tab.Screen name="TrackList" component={TrackList} />
-      <Tab.Screen name="TrackCreate" component={TrackCreate} />
+      <Tab.Screen name="TrakList" component={TrackList} />
+      <Tab.Screen name="TrakCreate" component={TrackCreate} />
       <Tab.Screen name="Account" component={Account} />
     </Tab.Navigator>
   );

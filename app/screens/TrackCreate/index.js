@@ -1,39 +1,35 @@
-import React, { useEffect, useState } from "react";
-import { View, Text } from "react-native";
+import "../../_mockLocation";
+import React, { useContext } from "react";
+import { Text } from "react-native";
 import Map from "../../components/Map";
-import {
-  requestPermissionsAsync,
-  Accuracy,
-  watchPositionAsync,
-} from "expo-location";
-// import "../../_mockLocation";
+import { useIsFocused } from "@react-navigation/native";
 
-const TrackCreate = () => {
-  const [error, setError] = useState();
-  const startWatching = async () => {
-    try {
-      await requestPermissionsAsync();
-      await watchPositionAsync(
-        {
-          accuracy: Accuracy.BestForNavigation,
-          timeInterval: 1000,
-          distanceInterval: 10,
-        },
-        (location) => console.log(location)
-      );
-    } catch (err) {
-      setError(err);
-    }
-  };
+import { Context as LocationContext } from "../../contexts/locationContext";
+import useLocation from "../../util/ops/useLocation";
+import TrackForm from "../../components/TrackForm";
+import { useCallback } from "react";
+import { call } from "react-native-reanimated";
 
-  useEffect(() => {
-    startWatching();
-  }, []);
+const TrackCreate = ({ navigation: { navigate } }) => {
+  const {
+    addLocation,
+    state: { recording },
+  } = useContext(LocationContext);
+  const isFocused = useIsFocused();
+  // console.log(isFocused, "focus");
+  const callback = useCallback(
+    (location) => {
+      addLocation(location, recording);
+    },
+    [recording]
+  );
+  const [error] = useLocation(isFocused || recording, callback);
 
   return (
     <>
       <Map />
       {error && <Text> Please Enable location services </Text>}
+      <TrackForm navigate={navigate} />
     </>
   );
 };
